@@ -3,18 +3,18 @@ let baseUrl = 'http://localhost:3000'
 
 
 
-$(document).ready(function(){
+$(document).ready(function () {
     console.log('ready')
 
     defaultLogout()
 
-    if(localStorage.getItem('token')){
+    if (localStorage.getItem('token')) {
         Auth()
     }
 
 });
 
-function defaultLogout(){
+function defaultLogout() {
     $("#loginForm").show()
     $("#registerForm").hide()
     $("#mainMenu").hide()
@@ -26,7 +26,7 @@ function defaultLogout(){
     $("#menuWelcome").hide()
 }
 
-function defaultHome(){
+function defaultHome() {
     $("#loginForm").hide()
     $("#loginError").hide()
     $("#registerForm").hide()
@@ -36,17 +36,17 @@ function defaultHome(){
     $("#menuWelcome").show()
 }
 
-$("#toRegister").click(()=>{
+$("#toRegister").click(() => {
     $("#loginForm").hide()
     $("#registerForm").show()
 })
 
-$("#toLogin").click(()=>{
+$("#toLogin").click(() => {
     $("#loginForm").show()
     $("#registerForm").hide()
 })
 
-$("#register").click((e)=>{
+$("#register").click((e) => {
     e.preventDefault()
 
 
@@ -61,11 +61,11 @@ $("#register").click((e)=>{
     setTimeout(() => {
         $("#loginNotif").hide()
     }, 3000);
-;
+    ;
 })
 
 
-$("#login").click((e)=>{
+$("#login").click((e) => {
     e.preventDefault()
 
 
@@ -73,3 +73,51 @@ $("#login").click((e)=>{
     defaultHome()
 })
 
+//FUNCTION GOOGLE SIGN IN
+function onSignIn(googleUser) {
+    var id_token = googleUSer.getAuthResponse().id_token
+    console.log(id_token);
+
+    $.ajax({
+        url: baseUrl + 'user/googlelogin',
+        method: 'POST',
+        data: {
+            googleToken: id_token
+        }
+    })
+        .done((response) => {
+            localStorage.setItem('acces_token', response.access_token)
+            auth()
+        })
+        .fail((err) => {
+            console.log(err);
+        })
+}
+
+function login() {
+    const email = $('#emailInput').val()
+    const password = $('#passwordInput').val()
+    $.ajax({
+        url: baseUrl + 'user/login',
+        method: 'POST',
+        data: {
+            email,
+            password
+        }
+    })
+        .done((response) => {
+            localStorage.setItem('access_token', response.acces_token)
+            auth()
+        })
+        .fail((xhr, text) => {
+            console.log(xhr, text);
+        })
+        .always(_ => {
+            $('#loginForm').trigger('reset')
+        })
+}
+
+function logout() {
+    localStorage.removeItem('access_token')
+    auth()
+}

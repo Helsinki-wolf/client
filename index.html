@@ -3,7 +3,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- GOOGLE -->
+    <meta name="google-signin-client_id"
+        content="787949641888-prndtobrde3mot0aqnprpodig9bh2mbv.apps.googleusercontent.com">
+        
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/semantic-ui@2.4.2/dist/semantic.min.css">
+
 
     <title>Document</title>
 </head>
@@ -37,16 +42,17 @@
         <form class="ui form">
             <div class="field">
               <label>Email</label>
-              <input type="email" placeholder="Email">
+              <input type="email" id="loginEmail" placeholder="Email">
             </div>
             <div class="field">
               <label>Password</label>
-              <input type="password" placeholder="Password">
+              <input type="password" id="loginPassword" placeholder="Password">
             </div>
             <div class="field" id="toRegister" style="cursor: pointer;">
                 <a>Register an account</a>
             </div>
-            <button class="ui button primary" id="login" type="submit">Submit</button>
+            <button class="ui button primary" id="login" style="margin-bottom: 10px;" type="submit">Submit</button>
+            <div class="g-signin2" data-onsuccess="onSignIn"></div>
         </form>
         <div class="ui message" id="loginError">
             <p style="color: red" id="loginErrorMessage">
@@ -67,15 +73,15 @@
         <form class="ui form">
             <div class="field">
                 <label>Name</label>
-                <input type="text" placeholder="Name">
+                <input type="text" id="registerName" placeholder="Name">
             </div>
             <div class="field">
               <label>Email</label>
-              <input type="email" placeholder="Email">
+              <input type="email" id="registerEmail" placeholder="Email">
             </div>
             <div class="field">
               <label>Password</label>
-              <input type="password" placeholder="Password">
+              <input type="password" id="registerPassword" placeholder="Password">
             </div>
             <div class="field" id="toLogin" style="cursor: pointer;">
                 <a>Back to Login</a>
@@ -105,15 +111,24 @@
             <div class="header">Christian</div>
           </div>
         </div>
-        <div class="item" style="margin: 40px auto; cursor: pointer;">
-          <img class="ui avatar image" src="https://semantic-ui.com/images/avatar/small/daniel.jpg">
+        <div class="item" id="publicApiArt" style="margin: 40px auto; cursor: pointer;">
+          <img class="ui avatar image" src="https://img.icons8.com/ios/452/museum.png">
           <div class="content">
-            <div class="header">Daniel</div>
+            <div class="header">Harvard Art Museum</div>
           </div>
         </div>
       </div>  
 
+    </div>
 
+
+    <div id="artHarvard" style="margin: auto; padding: 40px;">
+      <h1 class="header" style="margin: 0 40px 40px;">Arts</h1>
+      <div class="ui cards" id="arts" style="justify-content: center;">
+
+      </div>
+
+      
     </div>
 
 
@@ -131,5 +146,6 @@
         crossorigin="anonymous">
     </script>
     <script src="app.js"></script>
+    <script src="https://apis.google.com/js/platform.js" async defer></script>
 </body>
 </html>
